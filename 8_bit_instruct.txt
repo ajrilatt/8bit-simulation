@@ -1,0 +1,32 @@
+INSTRUCTION LIST
+----------------
+00: NOP           -- No operation
+----------------
+01: LDA *val      -- Load value from ROM into A
+02: LDR *adr      -- Load value from RAM into A
+03: STA *adr      -- Store value from A in RAM
+04: STB           -- Store value from A into B
+----------------
+05: ADD           -- Add B to A, store in A
+06: AND           -- Logic AND with A and B, store in A
+07: ORA           -- Logic OR  with A and B, store in A
+08: XRA           -- Logic XOR with A and B, store in A
+09: NTA           -- Logic NOT A, store in A
+0A: BSL           -- Bit shift A left
+0B: BSR           -- Bit shift A right
+0C: ROL           -- Rotate A left
+----------------
+10: JMP *val      -- Jump to program line ROM
+11: JMZ *val      -- Jump to program line ROM if A = 0
+(jump if A=B, can be mimicked by XORing A and B and checking for 0)
+----------------
+1F: HLT           -- Halt program
+----------------
+
+
+
+ADDRESS LINES NEEDED:  8 bytes of RAM -> 8 (DEMUX from 3)
+ALU OPERATIONS NEEDED:  +&|⊕!>><<⟲  ->  8 (DEMUX from 3)
+INSTRUCTION WIDTH:    20 instructions -> 5
+DATA BUS WIDTH:                          8
+MAXIMUM PROGRAM LENGTH:                 62

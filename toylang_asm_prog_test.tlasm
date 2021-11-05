@@ -1,0 +1,50 @@
+// Adam Rilatt
+// 02 March 2021
+// ToyLang Assembler Test
+
+// This program contains valid assembly code for the ToyLang machine. It will be
+// used to evaluate performance of the new assembler. The program *should*
+// multiply numbers, but it's always a little dicey with hand-assembled things.
+
+// sum = r0
+// multiplicand = r1
+// counter = r2
+
+LDA 5        // 1   multiplicand
+STA r1       // 2
+LDA 1        // 3
+STB          // 4
+LDA 7        // 5   counter
+STA r2       // 6
+
+// on entry, A = counter and B = 1
+JMZ 30       // 7   loop top & exit condition counter = 0
+AND          // 8
+JMZ 20       // 9   jump if counter & 1 = 0
+
+LDR r1       // 10  (counter & 1 != 0)
+STB          // 11
+LDR r0       // 12  sum += mult
+ADD          // 13
+STA r0       // 14
+LDA 255      // 15 counter -= 1
+STB          // 16
+LDR r2       // 17
+ADD          // 18
+STA r2       // 19
+
+// On entry, A = counter and B is unknown
+LDR r2       // 20  counter >> 1
+BSR          // 21
+STA r2       // 22
+LDR r1       // 23  mult << 1
+BSL          // 24
+STA r1       // 25
+
+LDA 1        // 26  back to loop top, do some preprocessing steps
+STB          // 27
+LDR r2       // 28
+JMP 7        // 29
+
+LDR r0       // 30  sum complete
+HLT          // 31
